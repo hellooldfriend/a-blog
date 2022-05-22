@@ -17,6 +17,9 @@ const ArticleForm: FC<Props> = ({ onSubmit }) => {
       title,
       content: description,
     })
+
+    setTitle('')
+    setDescription('')
   }
 
   return (

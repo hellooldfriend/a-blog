@@ -8,28 +8,11 @@ import Articles from '../../components/Articles'
 import SearchBar from '../../components/SearchBar'
 import ArticleForm from '../../components/ArticleForm'
 
-const mockData: IArticle[] = [
-  {
-    id: '1',
-    title: 'Title 1',
-    content: 'Some content 1'
-  },
-  {
-    id: '2',
-    title: 'Title 2',
-    content: 'Some content 2'
-  },
-  {
-    id: '3',
-    title: 'Title 3',
-    content: 'Some content 3'
-  },
-]
 
 const API = 'http://localhost:5000'
 
 const BlogPage: FC = () => {
-  const [canEdit, setCanEdit] = useState(true)
+  const canEdit = true
   const [posts, setPosts] = useState<IArticle[]>([])
 
 
@@ -39,16 +22,16 @@ const BlogPage: FC = () => {
 
   const getPosts = async () => {
     try {
-      console.log('API', `${API}/posts`)
       const response = await axios.get(`${API}/posts`)
-      console.log('response', response)
+      setPosts(response.data)
     } catch (e) {
       console.error(e)
     }
   }
 
   const handleSubmit = async (data: IArticle) => {
-    await axios.post(`${API} / posts / new `, data)
+    await axios.post(`${API}/posts/new`, data)
+    getPosts()
   }
 
   return (
@@ -63,7 +46,7 @@ const BlogPage: FC = () => {
       {/* <SearchBar /> */}
 
 
-      <Articles items={mockData} />
+      <Articles items={posts} />
     </div>
   );
 };

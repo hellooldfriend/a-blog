@@ -4,16 +4,16 @@ import type { IArticle } from '../types'
 
 
 interface Props {
-  onSubmit: (data: IArticle) => void;
+  onSubmit: (data: Omit<IArticle, 'id'>) => void;
 }
 
 const ArticleForm: FC<Props> = ({ onSubmit }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [tags, setTags] = useState('')
 
   const handleClick = () => {
     onSubmit({
-      id: Date.now().toString(),
       title,
       content: description,
     })
@@ -25,6 +25,7 @@ const ArticleForm: FC<Props> = ({ onSubmit }) => {
   return (
     <div>
       <input
+        placeholder="Title"
         type="text"
         value={title}
         onChange={e => setTitle(e.target.value)}
@@ -34,12 +35,24 @@ const ArticleForm: FC<Props> = ({ onSubmit }) => {
       <br />
 
       <textarea
+        placeholder="Text"
         value={description}
         onChange={e => setDescription(e.target.value)}
       />
 
       <br />
       <br />
+
+      <input
+        type="text"
+        placeholder="tags"
+        value={tags}
+        onChange={e => setTags(e.target.value)}
+      />
+
+      <br />
+      <br />
+
 
       <button onClick={handleClick}>Create</button>
 

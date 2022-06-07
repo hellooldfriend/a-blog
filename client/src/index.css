@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+section {
+  margin-bottom: 20px;
+}
+
+.content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8px 12px;
+}
+
+.article {
+  border: 1px solid;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.article h3 {
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.article p {
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.search_input {
+  width: 100%;
+  font-size: 32px;
+}

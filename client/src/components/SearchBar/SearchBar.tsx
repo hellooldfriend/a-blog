@@ -5,6 +5,7 @@ const SearchBar = () => {
 
   return (
     <input
+      className="search_input"
       type="text"
       placeholder="Search"
       value={query}

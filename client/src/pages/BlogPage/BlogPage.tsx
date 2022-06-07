@@ -16,6 +16,9 @@ const BlogPage: FC = () => {
   const [posts, setPosts] = useState<IArticle[]>([])
 
 
+  console.log('POSTS', posts);
+
+
   useEffect(() => {
     getPosts();
   }, [])
@@ -29,24 +32,28 @@ const BlogPage: FC = () => {
     }
   }
 
-  const handleSubmit = async (data: IArticle) => {
-    await axios.post(`${API}/posts/new`, data)
+  const handleSubmit = async (data: Omit<IArticle, 'id'>) => {
+    await axios.post(`${API}/posts`, data)
     getPosts()
   }
 
   return (
-    <div>
-      <h1>BlogPage</h1>
-
-      {canEdit && <ArticleForm onSubmit={handleSubmit} />}
+    <div className="content">
+      <section>
+        <SearchBar />
+      </section>
 
       <hr />
 
+      <section>
+        {canEdit && <ArticleForm onSubmit={handleSubmit} />}
+      </section>
 
-      {/* <SearchBar /> */}
+      <hr />
 
-
-      <Articles items={posts} />
+      <section>
+        <Articles items={posts} />
+      </section>
     </div>
   );
 };

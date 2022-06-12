@@ -19,13 +19,32 @@ const Article: FC<IArticle> = ({ id, title, content }) => {
     window.location.reload()
   }
 
+  const handleSave = async () => {
+    await axios.put(`http://localhost:5000/posts/${id}`, {
+      title: titleState,
+      content: contentState,
+    })
+    window.location.reload()
+  }
+
   return (
     <div className="article">
-      <h3>{titleState}</h3>
-      <p>{contentState}</p>
+      {isEdit
+        ? <input type="text" value={titleState} onChange={(e) => setTitleState(e.target.value)} />
+        : <h3>{titleState}</h3>
+      }
+
+      {isEdit
+        ? <textarea value={contentState} onChange={e => setContentState(e.target.value)} />
+        :  <p>{contentState}</p>
+      }
 
       <button onClick={handleEdit}>{isEdit ? 'Cancel' : 'Edit'}</button>
-      <button onClick={handleDelete}>Delete</button>
+      <button
+        onClick={isEdit ? handleSave : handleDelete}
+      >
+        {isEdit ? 'Save' : 'Delete'}
+      </button>
     </div>
   );
 };

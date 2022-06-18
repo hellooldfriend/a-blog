@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import type { FC } from 'react'
 import type { IArticle } from '../types'
-
+import './ArticleForm.scss';
 
 interface Props {
+  onClose: () => void;
   onSubmit: (data: Omit<IArticle, 'id'>) => void;
 }
 
-const ArticleForm: FC<Props> = ({ onSubmit }) => {
+const ArticleForm: FC<Props> = ({ onSubmit, onClose }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState('')
@@ -22,41 +23,52 @@ const ArticleForm: FC<Props> = ({ onSubmit }) => {
     setDescription('')
   }
 
+  const handleDivContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+  }
+
   return (
-    <div>
-      <input
-        placeholder="Title"
-        type="text"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-      />
+    <div className="overlay" onClick={onClose}>
+      <div className="modal_content" onClick={handleDivContentClick}>
+        <button className="modal_close" onClick={onClose}>x</button>
 
-      <br />
-      <br />
+        <div className="form">
+          <input
+            placeholder="Title"
+            type="text"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
 
-      <textarea
-        placeholder="Text"
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-      />
+          <br />
+          <br />
 
-      <br />
-      <br />
+          <textarea
+            placeholder="Text"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
 
-      <input
-        type="text"
-        placeholder="tags"
-        value={tags}
-        onChange={e => setTags(e.target.value)}
-      />
+          <br />
+          <br />
 
-      <br />
-      <br />
+          <input
+            type="text"
+            placeholder="tags"
+            value={tags}
+            onChange={e => setTags(e.target.value)}
+          />
+
+          <br />
+          <br />
 
 
-      <button onClick={handleClick}>Create</button>
+          <button onClick={handleClick}>Create</button>
 
+        </div>
+      </div>
     </div>
+
 
   );
 };

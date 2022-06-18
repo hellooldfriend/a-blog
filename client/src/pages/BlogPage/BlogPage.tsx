@@ -7,6 +7,7 @@ import axios from 'axios'
 import Articles from '../../components/Articles'
 import SearchBar from '../../components/SearchBar'
 import ArticleForm from '../../components/ArticleForm'
+import Portal from '../../components/Portal'
 
 
 const API = 'http://localhost:5000'
@@ -14,10 +15,7 @@ const API = 'http://localhost:5000'
 const BlogPage: FC = () => {
   const canEdit = true
   const [posts, setPosts] = useState<IArticle[]>([])
-
-
-  console.log('POSTS', posts);
-
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     getPosts();
@@ -35,18 +33,29 @@ const BlogPage: FC = () => {
   const handleSubmit = async (data: Omit<IArticle, 'id'>) => {
     await axios.post(`${API}/posts`, data)
     getPosts()
+    setShowModal(false)
   }
 
   return (
     <div className="content">
+
       <section>
         <SearchBar />
+
+        <button onClick={() => setShowModal(true)}>Add post</button>
       </section>
 
       <hr />
 
       <section>
-        {canEdit && <ArticleForm onSubmit={handleSubmit} />}
+        {showModal &&
+          <Portal>
+            <ArticleForm
+              onSubmit={handleSubmit}
+              onClose={() => setShowModal(false)}
+            />
+          </Portal>
+        }
       </section>
 
       <hr />

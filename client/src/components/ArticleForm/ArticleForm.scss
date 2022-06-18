@@ -1,0 +1,30 @@
+
+.form {
+  padding: 8px;
+
+  @media(min-width: 320px) {
+    padding: 16px;
+  }
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.modal_content {
+  width: 400px;
+  height: 400px;
+  margin: 100px auto;
+  box-sizing: border-box;
+  background: #fff;
+  position: relative;
+}
+
+.modal_close {
+
+}

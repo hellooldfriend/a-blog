@@ -1,6 +1,4 @@
 const { nanoid } = require('nanoid')
-const fs = require('fs')
-const path = require('path')
 const client = require('../data/db')
 
 

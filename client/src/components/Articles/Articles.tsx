@@ -1,11 +1,11 @@
 import React from 'react'
 import { FC } from 'react'
-import { IArticle } from '../types'
+import { Post } from '../../types'
 
 import Article from '../Article'
 
 interface Props {
-  items: IArticle[];
+  items: Post[];
 }
 
 const Articles: FC<Props> = ({ items }) => {

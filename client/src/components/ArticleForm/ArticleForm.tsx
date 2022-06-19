@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import type { FC } from 'react'
-import type { IArticle } from '../types'
+import type { Post } from '../../types'
 import './ArticleForm.scss';
 
 interface Props {
   onClose: () => void;
-  onSubmit: (data: Omit<IArticle, 'id'>) => void;
+  onSubmit: (data: Omit<Post, 'id'>) => void;
 }
 
 const ArticleForm: FC<Props> = ({ onSubmit, onClose }) => {

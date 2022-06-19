@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import type { FC } from 'react'
-import type { IArticle } from '../../components/types'
-
-import axios from 'axios'
+import { Post } from '../../types'
 
 import Articles from '../../components/Articles'
 import SearchBar from '../../components/SearchBar'
 import ArticleForm from '../../components/ArticleForm'
 import Portal from '../../components/Portal'
 
-
-const API = 'http://localhost:5000'
+import { useStore } from 'effector-react'
+import { getPosts, createPost } from '../../effector'
+import $store from '../../effector/store'
 
 const BlogPage: FC = () => {
-  const canEdit = true
-  const [posts, setPosts] = useState<IArticle[]>([])
+  const store = useStore($store)
+  const { posts } = store
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     getPosts();
   }, [])
 
-  const getPosts = async () => {
-    try {
-      const response = await axios.get(`${API}/posts`)
-      setPosts(response.data)
-    } catch (e) {
-      console.error(e)
-    }
-  }
 
-  const handleSubmit = async (data: Omit<IArticle, 'id'>) => {
-    await axios.post(`${API}/posts`, data)
+  const handleSubmit = async (data: Omit<Post, 'id'>) => {
+    createPost(data)
     getPosts()
     setShowModal(false)
   }

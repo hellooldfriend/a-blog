@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
 import type { FC } from 'react';
-import { IArticle } from '../types'
-import axios from 'axios'
+import { Post } from '../../types'
 
+import { deletePost, getPosts, updatePost } from '../../effector'
 
-const Article: FC<IArticle> = ({ id, title, content }) => {
+const Article: FC<Post> = ({ id, title, content }) => {
   const [isEdit, setIsEdit] = useState(false)
   const [titleState, setTitleState] = useState(title || '')
   const [contentState, setContentState] = useState(content || '')
 
-
-  const handleEdit = () => {
-    setIsEdit(prev => !prev)
-  }
-
   const handleDelete = async () => {
-    await axios.delete(`http://localhost:5000/posts/${id}`)
-    window.location.reload()
+    await deletePost(id)
+    await getPosts()
   }
 
   const handleSave = async () => {
-    await axios.put(`http://localhost:5000/posts/${id}`, {
+    await updatePost({
+      id,
       title: titleState,
       content: contentState,
     })
-    window.location.reload()
+    setIsEdit(false)
+    await getPosts()
   }
 
   return (
@@ -39,7 +36,7 @@ const Article: FC<IArticle> = ({ id, title, content }) => {
         :  <p>{contentState}</p>
       }
 
-      <button onClick={handleEdit}>{isEdit ? 'Cancel' : 'Edit'}</button>
+      <button onClick={() => setIsEdit(!isEdit)}>{isEdit ? 'Cancel' : 'Edit'}</button>
       <button
         onClick={isEdit ? handleSave : handleDelete}
       >

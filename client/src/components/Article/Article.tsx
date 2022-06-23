@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { FC } from 'react';
 import { Post } from '../../types'
+import { Link } from 'react-router-dom';
 
 import { deletePost, getPosts, updatePost } from '../../effector'
 
@@ -28,7 +29,7 @@ const Article: FC<Post> = ({ id, title, content }) => {
     <div className="article">
       {isEdit
         ? <input type="text" value={titleState} onChange={(e) => setTitleState(e.target.value)} />
-        : <h3>{titleState}</h3>
+        : <Link to={`/${id}`}><h3>{titleState}</h3></Link>
       }
 
       {isEdit

@@ -28,3 +28,9 @@ export const updatePost = createEffect(async (data: Post) => {
   await axios.put(url, body)
   return
 })
+
+export const getPost = createEffect(async (id: string) => {
+  const url = `${URL}/posts/${id}`
+  const response = await axios.get(url)
+  return response.data
+})

@@ -1,16 +1,11 @@
 const client = require('../data/db')
 
-
-class Post {
-  constructor(title, content) {
-    this.title = title
-    this.content = content
-  }
+class User {
 
   static getAll() {
     return new Promise((resolve, reject) => {
       client.query(
-        'SELECT * FROM posts',
+        'SELECT * FROM accounts',
         (error, response) => {
           if(error) reject(error)
           resolve(response?.rows)
@@ -22,7 +17,7 @@ class Post {
   static async getById(id) {
     return new Promise((resolve, reject) => {
       client.query(
-        'SELECT * FROM posts WHERE id=$1',
+        'SELECT * FROM accounts WHERE id=$1',
         [id],
         (error, response) => {
           if(error) reject(error)
@@ -34,11 +29,11 @@ class Post {
 
   static async update(id, body) {
     return new Promise((resolve, reject) => {
-      const { title, content } = body
+      const { name, lastname, email } = body
 
       client.query(
-        'UPDATE posts SET title=$1, content=$2 WHERE id=$3',
-        [title, content, id],
+        'UPDATE accounts SET name=$1, lastname=$2, email=$3 WHERE id=$4',
+        [name, lastname, email, id],
         (error, response) => {
           if(error) reject(error)
           resolve(response?.rows[0])
@@ -50,7 +45,7 @@ class Post {
   static async delete(id) {
     return new Promise((resolve, reject) => {
       client.query(
-        'DELETE FROM posts WHERE id=$1',
+        'DELETE FROM accounts WHERE id=$1',
         [id],
         (error, response) => {
           if(error) reject(response)
@@ -61,32 +56,17 @@ class Post {
   }
 
   static async create(body) {
-    return new Promise((resolve, reject) => {
-      const { title, content } = body
-      client.query(
-        'INSERT INTO posts (title, content) VALUES ($1, $2)',
-        [title, content],
-        (error, response) => {
-          if(error) reject(error)
-          resolve(response?.rows)
-        }
-      )
-    })
-  }
-
-
-  async save() {
-    return new Promise((resolve, reject) => {
-      client.query(
-        'INSERT INTO posts(title, content) VALUES($1 $2) RETURNING *', 
-        [this.title, this.content],
-        (error) => {
+    const { name, lastname, email } = body
+    client.query(
+      'INSERT INTO accounts (name, lastname, email) values ($1, $2, $3) RETURNING *',
+      [name, lastname, email],
+      (error, response) => {
         if(error) reject(error)
-        resolve()
-        client.end()  
-      })
-    })
+        resolve(response?.rows)
+      }
+    )
   }
+
 }
 
-module.exports = Post
+module.exports = User

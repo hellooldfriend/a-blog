@@ -6,20 +6,26 @@ import Articles from '../../components/Articles'
 import SearchBar from '../../components/SearchBar'
 import ArticleForm from '../../components/ArticleForm'
 import Portal from '../../components/Portal'
+import Login from '../../components/Login'
 
 import { useStore } from 'effector-react'
-import { getPosts, createPost } from '../../effector'
-import $store from '../../effector/store'
+import {
+  getPosts,
+  createPost,
+  $postsStore,
+} from '../../effector'
+
+import './BlogPage.scss'
 
 const BlogPage: FC = () => {
-  const store = useStore($store)
-  const { posts } = store
+  const postsStore = useStore($postsStore)
+  const { posts } = postsStore
+
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    getPosts();
+    getPosts()
   }, [])
-
 
   const handleSubmit = async (data: Omit<Post, 'id'>) => {
     createPost(data)
@@ -29,6 +35,10 @@ const BlogPage: FC = () => {
 
   return (
     <div className="content">
+      <div className="header">
+        <div />
+        <Login />
+      </div>
 
       <section>
         <SearchBar />

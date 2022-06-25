@@ -4,4 +4,3 @@ import type { Post } from '../../types'
 
 export const $postStore = createStore<Post | null>(null)
   .on(getPost.doneData, (state, post) => post);
-

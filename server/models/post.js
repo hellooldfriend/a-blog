@@ -60,9 +60,9 @@ class Post {
     })
   }
 
-  static async create(body) {
+  static async create(data) {
     return new Promise((resolve, reject) => {
-      const { title, content } = body
+      const { title, content } = data
       client.query(
         'INSERT INTO posts (title, content) VALUES ($1, $2)',
         [title, content],

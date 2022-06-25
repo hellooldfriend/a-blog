@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import type { FC } from 'react'
 import { Post } from '../../types'
 
@@ -8,28 +8,24 @@ import ArticleForm from '../../components/ArticleForm'
 import Portal from '../../components/Portal'
 import Login from '../../components/Login'
 
-import { useStore } from 'effector-react'
+import { useStore, useGate } from 'effector-react'
 import {
-  getPosts,
   createPost,
   $postsStore,
-} from '../../effector'
+  postsGate,
+} from '../../state'
 
 import './BlogPage.scss'
 
 const BlogPage: FC = () => {
+  useGate(postsGate)
   const postsStore = useStore($postsStore)
   const { posts } = postsStore
 
   const [showModal, setShowModal] = useState(false)
 
-  useEffect(() => {
-    getPosts()
-  }, [])
-
   const handleSubmit = async (data: Omit<Post, 'id'>) => {
     createPost(data)
-    getPosts()
     setShowModal(false)
   }
 

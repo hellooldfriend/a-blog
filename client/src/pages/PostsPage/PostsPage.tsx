@@ -15,9 +15,9 @@ import {
   postsGate,
 } from '../../state'
 
-import './BlogPage.scss'
+import './PostsPage.scss'
 
-const BlogPage: FC = () => {
+const PostsPage: FC = () => {
   useGate(postsGate)
   const postsStore = useStore($postsStore)
   const { posts } = postsStore
@@ -64,4 +64,4 @@ const BlogPage: FC = () => {
   );
 };
 
-export default BlogPage;
+export default PostsPage;

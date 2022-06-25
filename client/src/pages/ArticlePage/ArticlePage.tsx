@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
-import { getPost, $postStore } from '../../effector'
-
+import { getPost, $postStore } from '../../state'
 import { useStore } from 'effector-react'
 
+import Comments from '../../components/Comments'
 
 const ArticlePage = () => {
   const params = useParams();
@@ -28,6 +28,8 @@ const ArticlePage = () => {
 
       <h1>{title}</h1>
       <p>{content}</p>
+
+      <Comments />
     </div>
   )
 }

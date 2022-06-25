@@ -6,14 +6,14 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import BlogPage from './pages/BlogPage'
+import PostsPage from './pages/PostsPage'
 import ArticlePage from './pages/ArticlePage'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<BlogPage />} />
+        <Route path="/" element={<PostsPage />} />
         <Route path="/:id" element={<ArticlePage />} />
       </Routes>
     </BrowserRouter>

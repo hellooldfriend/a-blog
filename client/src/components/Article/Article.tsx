@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Post } from '../../types'
 import { Link } from 'react-router-dom';
 
-import { deletePost, getPosts, updatePost } from '../../effector'
+import { deletePost, updatePost } from '../../state'
 
 const Article: FC<Post> = ({ id, title, content }) => {
   const [isEdit, setIsEdit] = useState(false)
@@ -12,7 +12,6 @@ const Article: FC<Post> = ({ id, title, content }) => {
 
   const handleDelete = async () => {
     await deletePost(id)
-    await getPosts()
   }
 
   const handleSave = async () => {
@@ -22,7 +21,6 @@ const Article: FC<Post> = ({ id, title, content }) => {
       content: contentState,
     })
     setIsEdit(false)
-    await getPosts()
   }
 
   return (

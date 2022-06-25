@@ -1,3 +1,3 @@
-import BlogPage from './BlogPage'
+import PostsPage from './PostsPage'
 
-export default BlogPage
+export default PostsPage

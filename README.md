@@ -6,19 +6,14 @@
 - [x] add posts router
 - [x] open post in a separate page
 - [x] add routes
+- [x] comments, nested comments
+- [ ] comments UI
+- [ ] CRUD on comments
+- [ ] adding reply to a comment
 - [ ] login
 - [ ] authorisation
 - [ ] search
-- [ ] comments, nested comments
+- [ ] content with multiple images
+- [ ] get comments only for exact post
 - [ ] CI/CD
 - [ ] Deploy
-
-
-
-
-//
-comment1 | { id: 1; parent: null },
-    reply | { id: 2; parent: 1 },
-
-// ========
-
